@@ -11,14 +11,14 @@ const db = require("../models");
 module.exports = function(app) {
     // Homepage
     app.get("/", (req, res) => {
-        // Get articles from database
-        const articles = [
-            {headline: "TEST", summary:"A short description of the article content", url: "http://nytimes.com"},
-            {headline: "TEST", summary:"A short description of the article content", url: "http://nytimes.com"}
-        ]
 
-        // Render page with article info
-        res.render("index", {articles: articles} );
+        // Get articles from database
+        db.Article.find({})
+            .then( articles => {
+                // Render page with article info
+                res.render("index", {articles: articles} );
+            })
+            .catch( err => res.send("Error retrieving articles from database") ); 
     });
 
     // A GET route for scraping the echoJS website
