@@ -31,10 +31,24 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
+// Configure Handlebars
+app.engine(
+    "handlebars",
+    exphbs({
+        defaultLayout: "main"
+    })
+);
+app.set("view engine", "handlebars");
+
 // Connect to the Mongo DB
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // Routes
+
+// Homepage
+app.get("/", (req, res) => {
+    res.render("index");
+});
 
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
@@ -62,7 +76,7 @@ app.get("/scrape", function(req, res) {
 
             // Check for existance of article in database already
 
-        // If new, create a new Article using the `result` object built from scraping
+            // If new, create a new Article using the `result` object built from scraping
         }
         else {
             console.log("Couldn't read from article tag!!!");
