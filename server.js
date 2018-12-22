@@ -50,15 +50,23 @@ app.get("/scrape", function(req, res) {
         
         // Save headline
         article.headline = $(this).children(".headline").text().trim();
-        console.log(title);
         // Save article summary
-        article.summary;
+        article.summary = $(this).children(".summary").text().trim();
         // Save article URL
-        article.url;
+        article.url = $(this).children(".headline").children("a").attr("href");
 
-        // Check for existance of article in database already
+        // Check for valid article
+        if (article.headline && article.url) {
+            console.log(JSON.stringify(article,null, 4));
+            console.log();
+
+            // Check for existance of article in database already
 
         // If new, create a new Article using the `result` object built from scraping
+        }
+        else {
+            console.log("Couldn't read from article tag!!!");
+        }
     
     });
 
