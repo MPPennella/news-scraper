@@ -1,3 +1,11 @@
+// Our scraping tools
+// Axios is a promised-based http library, similar to jQuery's Ajax method
+// It works on the client and on the server
+const axios = require("axios");
+const cheerio = require("cheerio");
+
+// Database tools and model configuration
+const mongoose = require("mongoose");
 const db = require("../models");
 
 module.exports = function(app) {
@@ -33,6 +41,9 @@ module.exports = function(app) {
                     // Check for existance of article in database already
 
                     // If new, create a new Article using the `result` object built from scraping
+                    db.Article.create(article)
+                        .then( dbArticle => console.log(dbArticle) )
+                        .catch( err => console.log(err) );
                 }
                 else {
                     console.log("Couldn't read from article tag!!!");

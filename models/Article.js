@@ -21,10 +21,12 @@ var ArticleSchema = new Schema({
     },
 
     // `url` is required and of type String
+    // Must be unique to uniquely identify articles
     url: {
         type: String,
         trim: true,
-        required: true
+        required: true,
+        unique: true
     },
     // `comments` is an array that stores Comment ObjectIds
     // The ref property links the ObjectId to the Comment model
