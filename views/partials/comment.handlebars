@@ -1,8 +1,12 @@
-<div class="card">
+<div class="card commentCard mb-2" data-id={{_id}}>
+    
     <p class="card-body">
         {{commentText}}
     </p>
-    <p class="card-footer">
+    <div class="card-footer">
         Posted by: {{author}} at {{datePosted}}
-    </p>
+        <button type="button" class="close commentRemoveBtn" aria-label="Remove Comment">
+            <span class="h6">Remove</span> <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 </div>
