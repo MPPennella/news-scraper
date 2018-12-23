@@ -2,14 +2,15 @@
     <h2>{{headline}}</h2>
     <p>{{summary}}</p>
     <a href={{url}}>View on nytimes.com</a>
-    <button class="commentBtn">Add a comment</button>
+    <button class="btn btn-primary commentBtn">Show Comments</button>
 
     <div class="commentBox card">
         <form class="card-body">
             Submit new comment:
             
-            <input type="text" name="comment" id="">
-            <button type="submit" class="btn postCmntBtn">Post Comment</button>
+            <textarea class="form-control" type="text" name="comment" placeholder="Write your comment here" class="form-input"></textarea>
+            <input class="custom-control custom-control-inline" type="text" name="author" placeholder="Author">
+            <button type="submit" class="btn btn-primary postCmntBtn">Post Comment</button>
             {{#each comments}}
                 {{> comment}}
             {{/each}}
