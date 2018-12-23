@@ -95,22 +95,33 @@ module.exports = function(app) {
 
     // Route for saving an Article's associated Comments
     app.post("/articles/comment/:id", function(req, res) {
-        // Create a new Comment and pass the req.body to the entry
-        // console.log(req.body)
-        
-        db.Comment.create(req.body)
-            .then(function(dbComment) {
-            // If a Comment was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Comment
-            // { new: true } tells the query that we want it to return the updated Article -- it returns the original by default
-            return db.Article.findOneAndUpdate({ _id: req.params.id }, {$push: { comments: dbComment._id }}, { new: true });
-            })
-            .then(function(dbArticle) {
-            // If we were able to successfully update an Article, send it back to the client
-            res.json(dbArticle);
-            })
-            .catch(function(err) {
-            // If an error occurred, send it to the client
-            res.json(err);
-            });
+        // Extract info from request
+        const {commentText, author} = req.body;
+
+        if (commentText && author) {
+            // Create a new Comment and pass the req.body to the entry
+            const newComment = {
+                commentText: commentText,
+                author: author,
+                datePosted: new Date()
+            }
+            
+            db.Comment.create(newComment)
+                .then(function(dbComment) {
+                // If a Comment was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Comment
+                // { new: true } tells the query that we want it to return the updated Article -- it returns the original by default
+                return db.Article.findOneAndUpdate({ _id: req.params.id }, {$push: { comments: dbComment._id }}, { new: true });
+                })
+                .then(function(dbArticle) {
+                // If we were able to successfully update an Article, send it back to the client
+                res.json(dbArticle);
+                })
+                .catch(function(err) {
+                // If an error occurred, send it to the client
+                res.json(err);
+                });
+        } else {
+            res.status(400).end();
+        }
     });
 }
