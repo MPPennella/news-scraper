@@ -10,6 +10,9 @@
             
             <input type="text" name="comment" id="">
             <button type="button" class="btn postCmntBtn">Post Comment</button>
+            {{#each comments}}
+                {{> comment}}
+            {{/each}}
         </form>
     </div>
 </div>

@@ -13,7 +13,7 @@ module.exports = function(app) {
     app.get("/", (req, res) => {
 
         // Get articles from database
-        db.Article.find({})
+        db.Article.find({}).populate("comments")
             .then( articles => {
                 // Render page with article info
                 res.render("index", {articles: articles} );
@@ -77,7 +77,7 @@ module.exports = function(app) {
         });
     });
 
-    // Route for grabbing a specific Article by id, populate it with it's note
+    // Route for grabbing a specific Article by id, populate it with its Comments
     app.get("/articles/:id", function(req, res) {
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
     db.Article.findOne({ _id: req.params.id })
