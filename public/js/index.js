@@ -9,16 +9,20 @@ $(document).on("click",".commentBtn", function (event) {
 $(document).on("click",".commentRemoveBtn", function (event) {
     const button = $(this);
     
+    const comment = button.parents(".commentCard");
     // Get Id of Comment to remove
-    const commentId = button.parents(".commentCard").data("id");
+    const commentId = comment.data("id");
 
     // Send request to delete route
     $.ajax({
         url: `/comments/${commentId}`,
         type: 'DELETE',
         success: function(result) {
-            // Do something with the result
             console.log("Successfully deleted")
+
+            // Remove Comment from page
+            comment.remove();
+
         }
     });
 })
