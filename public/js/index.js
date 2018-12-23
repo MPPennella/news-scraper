@@ -19,7 +19,7 @@ $(document).on("submit","form", function (event) {
         commentText: $(this).find("[name=comment]").val().trim(),
         author: $(this).find("[name=author]").val().trim()
     }
-
-    const articleId = placeholder = "5c1dfd8054e4c31bfc8f92e6"
+    const articleId = form.parents(".articleCard").data("id");
+    
     $.post(`./articles/comment/${articleId}`, newComment);
 })
