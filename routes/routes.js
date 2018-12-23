@@ -124,4 +124,11 @@ module.exports = function(app) {
             res.status(400).end();
         }
     });
+
+    // Route for deleting comments
+    app.delete("/comments/:id", (req, res) => {
+        db.Comment.deleteOne({_id: req.params.id}).then( response => console.log(response))
+
+        res.end();
+    })
 }
