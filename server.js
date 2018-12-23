@@ -13,7 +13,7 @@ const cheerio = require("cheerio");
 // const db = require("./models");
 
 // Server listening port
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Database port
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
