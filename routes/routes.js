@@ -93,14 +93,14 @@ module.exports = function(app) {
         });
     });
 
-    // Route for saving/updating an Article's associated Note
+    // Route for saving an Article's associated Comments
     app.post("/articles/comment/:id", function(req, res) {
-        // Create a new note and pass the req.body to the entry
+        // Create a new Comment and pass the req.body to the entry
         // console.log(req.body)
         
         db.Comment.create(req.body)
             .then(function(dbComment) {
-            // If a Comment was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
+            // If a Comment was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Comment
             // { new: true } tells the query that we want it to return the updated Article -- it returns the original by default
             return db.Article.findOneAndUpdate({ _id: req.params.id }, {$push: { comments: dbComment._id }}, { new: true });
             })
