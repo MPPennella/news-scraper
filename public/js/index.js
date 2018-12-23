@@ -17,7 +17,7 @@ $(document).on("submit","form", function (event) {
 
     const newComment = {
         commentText: $(this).find("[name=comment]").val().trim(),
-        author: "Test User".trim()
+        author: $(this).find("[name=author]").val().trim()
     }
 
     const articleId = placeholder = "5c1dfd8054e4c31bfc8f92e6"
